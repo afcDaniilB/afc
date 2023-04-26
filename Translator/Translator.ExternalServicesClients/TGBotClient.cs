@@ -24,7 +24,7 @@ namespace Translator.ExternalServicesClients
         public event ErrorMessage ErrorMsg;
         public TGBotClient()
         {
-            bot = new TelegramBotClient("6154955330:AAF1kwoOcweGwM1VGFTMWYMHWj3TXwykVbc");
+            bot = new TelegramBotClient("6249188380:AAEqTQNpIC7xZgc12TMqc5ZDqnLJGv-okDo");
             bot.StartReceiving(HandleUpdateAsync, HandleErrorAsync);
 
             Console.WriteLine("Бот запущен" + bot.GetMeAsync().Result);
