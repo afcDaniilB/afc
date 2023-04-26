@@ -15,6 +15,7 @@ namespace Translator.ExternalServicesClients
         {
             services.AddTransient<TGBotClient>();
             services.AddHostedService<HostedService>();
+            services.AddTransient<YandexTranslateService>();
         }
     }
 }
