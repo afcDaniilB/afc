@@ -4,10 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Translator", "Translator\Translator.csproj", "{E1F200B7-289B-4850-8120-3C49C02E05AE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{23F11AC8-EF2F-4810-A572-5727D8A25A8E} = {23F11AC8-EF2F-4810-A572-5727D8A25A8E}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Translator.ExternalServicesClients", "Translator.ExternalServicesClients\Translator.ExternalServicesClients.csproj", "{A828F0B7-1C5B-433A-96B4-505219B05043}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Translator.ApplicationEntities", "Translator.ApplicationEntities\Translator.ApplicationEntities.csproj", "{23F11AC8-EF2F-4810-A572-5727D8A25A8E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A828F0B7-1C5B-433A-96B4-505219B05043} = {A828F0B7-1C5B-433A-96B4-505219B05043}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

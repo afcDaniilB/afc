@@ -16,6 +16,7 @@ namespace Translator.ApplicationEntities
 {
     public class TranslatorEntities
     {
+        //Root myDeserializedClass = JsonConvert.DeserializeObject<Root>();
         public class RateLimit
         {
         }

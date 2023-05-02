@@ -8,6 +8,8 @@ using RestSharp;
 using RestSharp.Authenticators;
 using Telegram.Bots.Types;
 using System.ComponentModel.Design.Serialization;
+using Newtonsoft.Json;
+using static Translator.ExternalServicesClients.YandexTranslateService;
 
 namespace Translator.ExternalServicesClients
 {
@@ -38,17 +40,20 @@ namespace Translator.ExternalServicesClients
         private void BotClient_UpdateMsg(long chatId, string message)
         {
             yandexTranslate.ExgSymbol("api/v3/exchangeInfo?symbol=BNBBTC");
-            message = "ок пон";
+            message = "symbol";
             botClient.SendMessage(chatId, message);
             
 
         }
 
-        private void BotClient_StartMsg(long chatId, string message)
+        private async void BotClient_StartMsg(long chatId, string message)
         {
-            yandexTranslate.ExgInfo("api/v3/exchangeInfo");
-            message = "привет";
-            botClient.SendMessage(chatId, message);
+           
+            var res = await yandexTranslate.ExgInfo("api/v3/exchangeInfo");
+            Root exgResponse = JsonConvert.DeserializeObject<Root>(Convert.ToString(res.Content));
+            botClient.SendMessage(chatId, exgResponse.timezone);
+
+            
 
         }
 
