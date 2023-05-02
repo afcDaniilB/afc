@@ -37,13 +37,29 @@ namespace Translator.ExternalServicesClients
 
         public class ExchangeInformationRequest
         {
-
+            public string endpoint = "/api/v3/exchangeInfo";
+            public Method method = Method.Get;
+            public object? body;
         }
-        public void Send()
+
+        public async Task<ExchangeInformationResponse> Send(ExchangeInformationRequest Request)
         {
+            var request = new RestRequest(Request.endpoint, Request.method) { RequestFormat = DataFormat.Json };
+            //request.AddJsonBody(Request.body);
 
+            var response = await client.ExecuteAsync(request);
+
+            ApiParameters exgResponse = JsonConvert.DeserializeObject<ApiParameters>(Convert.ToString(response.Content));
+
+            return new ExchangeInformationResponse { parameters = exgResponse};
+            
         }
- 
+        public class ExchangeInformationResponse
+        {
+            public ApiParameters parameters { get; set; }
+        }
+
+        /*
         public RestRequest CreateRequest( string resource, Method method, object? body)
         {
             var request = new RestRequest(resource, method) { RequestFormat = DataFormat.Json };
@@ -76,6 +92,7 @@ namespace Translator.ExternalServicesClients
                 throw ex;
             }
         }
+        
         public async Task<RestResponse> ExgSymbol(string symbol)
         {
             try
@@ -89,111 +106,93 @@ namespace Translator.ExternalServicesClients
                 throw ex;
             }
         }
+        */
+
         
         public class RateLimit
         {
         }
-        public class Root
+
+        public class ApiParameters
         {
             [JsonProperty("timezone")]
-            [JsonPropertyName("timezone")]
-            public string timezone { get; set; }
+            public string Timezone { get; set; }
 
             [JsonProperty("serverTime")]
-            [JsonPropertyName("serverTime")]
-            public long serverTime { get; set; }
+            public long ServerTime { get; set; }
 
             [JsonProperty("rateLimits")]
-            [JsonPropertyName("rateLimits")]
-            public List<RateLimit> rateLimits { get; set; }
+            public List<RateLimit> RateLimits { get; set; }
 
             [JsonProperty("exchangeFilters")]
-            [JsonPropertyName("exchangeFilters")]
-            public List<object> exchangeFilters { get; set; }
+            public List<object> ExchangeFilters { get; set; }
 
             [JsonProperty("symbols")]
-            [JsonPropertyName("symbols")]
-            public List<Symbol> symbols { get; set; }
+            public List<Symbol> Symbols { get; set; }
         }
+
         public class Symbol
         {
             [JsonProperty("symbol")]
-            [JsonPropertyName("symbol")]
             public string symbol { get; set; }
 
             [JsonProperty("status")]
-            [JsonPropertyName("status")]
-            public string status { get; set; }
+            public string Status { get; set; }
 
             [JsonProperty("baseAsset")]
-            [JsonPropertyName("baseAsset")]
-            public string baseAsset { get; set; }
+            public string BaseAsset { get; set; }
 
             [JsonProperty("baseAssetPrecision")]
-            [JsonPropertyName("baseAssetPrecision")]
-            public int baseAssetPrecision { get; set; }
+            public int BaseAssetPrecision { get; set; }
 
             [JsonProperty("quoteAsset")]
-            [JsonPropertyName("quoteAsset")]
-            public string quoteAsset { get; set; }
+            public string QuoteAsset { get; set; }
 
             [JsonProperty("quotePrecision")]
-            [JsonPropertyName("quotePrecision")]
-            public int quotePrecision { get; set; }
+            public int QuotePrecision { get; set; }
 
             [JsonProperty("quoteAssetPrecision")]
-            [JsonPropertyName("quoteAssetPrecision")]
-            public int quoteAssetPrecision { get; set; }
+            public int QuoteAssetPrecision { get; set; }
 
             [JsonProperty("orderTypes")]
-            [JsonPropertyName("orderTypes")]
-            public List<string> orderTypes { get; set; }
+            public List<string> OrderTypes { get; set; }
 
             [JsonProperty("icebergAllowed")]
-            [JsonPropertyName("icebergAllowed")]
-            public bool icebergAllowed { get; set; }
+            public bool IcebergAllowed { get; set; }
 
             [JsonProperty("ocoAllowed")]
-            [JsonPropertyName("ocoAllowed")]
-            public bool ocoAllowed { get; set; }
+            public bool OcoAllowed { get; set; }
 
             [JsonProperty("quoteOrderQtyMarketAllowed")]
-            [JsonPropertyName("quoteOrderQtyMarketAllowed")]
-            public bool quoteOrderQtyMarketAllowed { get; set; }
+            public bool QuoteOrderQtyMarketAllowed { get; set; }
 
             [JsonProperty("allowTrailingStop")]
-            [JsonPropertyName("allowTrailingStop")]
-            public bool allowTrailingStop { get; set; }
+            public bool AllowTrailingStop { get; set; }
 
             [JsonProperty("cancelReplaceAllowed")]
-            [JsonPropertyName("cancelReplaceAllowed")]
-            public bool cancelReplaceAllowed { get; set; }
+            public bool CancelReplaceAllowed { get; set; }
 
             [JsonProperty("isSpotTradingAllowed")]
-            [JsonPropertyName("isSpotTradingAllowed")]
-            public bool isSpotTradingAllowed { get; set; }
+            public bool IsSpotTradingAllowed { get; set; }
 
             [JsonProperty("isMarginTradingAllowed")]
-            [JsonPropertyName("isMarginTradingAllowed")]
-            public bool isMarginTradingAllowed { get; set; }
+            public bool IsMarginTradingAllowed { get; set; }
 
             [JsonProperty("filters")]
-            [JsonPropertyName("filters")]
-            public List<object> filters { get; set; }
+            public List<object> Filters { get; set; }
 
             [JsonProperty("permissions")]
-            [JsonPropertyName("permissions")]
-            public List<string> permissions { get; set; }
+            public List<string> Permissions { get; set; }
 
             [JsonProperty("defaultSelfTradePreventionMode")]
-            [JsonPropertyName("defaultSelfTradePreventionMode")]
-            public string defaultSelfTradePreventionMode { get; set; }
+            public string DefaultSelfTradePreventionMode { get; set; }
 
             [JsonProperty("allowedSelfTradePreventionModes")]
-            [JsonPropertyName("allowedSelfTradePreventionModes")]
-            public List<string> allowedSelfTradePreventionModes { get; set; }
+            public List<string> AllowedSelfTradePreventionModes { get; set; }
         }
-        
+
+
+
 
     }
 

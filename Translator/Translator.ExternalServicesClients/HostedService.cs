@@ -26,7 +26,7 @@ namespace Translator.ExternalServicesClients
         public Task StartAsync(CancellationToken cancellationToken)
         {
             this.botClient.StartMsg += BotClient_StartMsg;
-            this.botClient.UpdateMsg += BotClient_UpdateMsg;
+          //  this.botClient.UpdateMsg += BotClient_UpdateMsg;
             this.botClient.ErrorMsg += BotClient_ErrorMsg;
 
             return Task.CompletedTask;
@@ -37,6 +37,7 @@ namespace Translator.ExternalServicesClients
             throw new NotImplementedException();
         }
 
+       /*
         private void BotClient_UpdateMsg(long chatId, string message)
         {
             yandexTranslate.ExgSymbol("api/v3/exchangeInfo?symbol=BNBBTC");
@@ -45,15 +46,12 @@ namespace Translator.ExternalServicesClients
             
 
         }
-
+       */
         private async void BotClient_StartMsg(long chatId, string message)
         {
-           
-            var res = await yandexTranslate.ExgInfo("api/v3/exchangeInfo");
-            Root exgResponse = JsonConvert.DeserializeObject<Root>(Convert.ToString(res.Content));
-            botClient.SendMessage(chatId, exgResponse.timezone);
-
-            
+             var res = await yandexTranslate.Send(new ExchangeInformationRequest());
+            //ApiParameters exgResponse = JsonConvert.DeserializeObject<ApiParameters>(Convert.ToString(res.Content));
+            botClient.SendMessage(chatId, res.parameters.Timezone);
 
         }
 
