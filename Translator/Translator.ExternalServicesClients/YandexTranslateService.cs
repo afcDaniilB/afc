@@ -59,7 +59,7 @@ namespace Translator.ExternalServicesClients
             public ApiParameters parameters { get; set; }
         }
 
-        /*
+        
         public RestRequest CreateRequest( string resource, Method method, object? body)
         {
             var request = new RestRequest(resource, method) { RequestFormat = DataFormat.Json };
@@ -106,7 +106,7 @@ namespace Translator.ExternalServicesClients
                 throw ex;
             }
         }
-        */
+        
 
         
         public class RateLimit
