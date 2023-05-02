@@ -14,6 +14,8 @@ using System.Security.Cryptography.X509Certificates;
 using Telegram.Bot.Requests;
 using System.Net.NetworkInformation;
 using System.Reflection;
+using System.ComponentModel.Design.Serialization;
+using Newtonsoft.Json;
 
 namespace Translator.ExternalServicesClients
 {
@@ -21,13 +23,13 @@ namespace Translator.ExternalServicesClients
     {
 
         //public interface IYandexTranslate
-        RestClientOptions options = new RestClientOptions("https://yandextranslatezakutynskyv1.p.rapidapi.com");
-        RestClient client = new RestClient();
+        RestClientOptions options = new RestClientOptions("https://data.binance.com");
+        RestClient client;
 
 
        public YandexTranslateService()
        {
-           client = new RestClient();
+           client = new RestClient("https://data.binance.com");
        }
          
 
@@ -41,22 +43,44 @@ namespace Translator.ExternalServicesClients
 
         public async Task<RestResponse> GetResponse(RestRequest request)
         {
-            var response = await client.ExecuteAsync(request);
-            return response;
+            try
+            {
+                var response = await client.ExecuteAsync(request);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        public async Task<RestResponse>  GetLangs()
-        {
+        
 
-                var request = CreateRequest("/language");
+        public async Task<RestResponse>  ExgInfo(string type)
+        {
+            try
+            {
+                var request = CreateRequest("/" + type, Method.Get, "");
                 var response = await GetResponse(request);
                 return response;
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-        public async Task<RestResponse> Translate(string text, string lang)
+        public async Task<RestResponse> ExgSymbol(string symbol)
         {
-            var request = CreateRequest("");
-            var response = await GetResponse(request);
-            return response;
+            try
+            {
+                var request = CreateRequest("/" + symbol, Method.Get, "");
+                var response = await GetResponse(request);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

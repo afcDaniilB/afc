@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RestSharp;
 using RestSharp.Authenticators;
 using Telegram.Bots.Types;
+using System.ComponentModel.Design.Serialization;
 
 namespace Translator.ExternalServicesClients
 {
@@ -36,16 +37,19 @@ namespace Translator.ExternalServicesClients
 
         private void BotClient_UpdateMsg(long chatId, string message)
         {
-            message = "Введите текст, который хотите перевести";
+            yandexTranslate.ExgSymbol("api/v3/exchangeInfo?symbol=BNBBTC");
+            message = "ок пон";
             botClient.SendMessage(chatId, message);
-            yandexTranslate.Translate("", "");
+            
+
         }
 
         private void BotClient_StartMsg(long chatId, string message)
         {
-            message = "Выберите язык, на который хотите перевести";
+            yandexTranslate.ExgInfo("api/v3/exchangeInfo");
+            message = "привет";
             botClient.SendMessage(chatId, message);
-            yandexTranslate.GetLangs("");
+
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
