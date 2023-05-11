@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +10,11 @@ namespace shop
 {
     class Program
     {
+
         static void Main(string[] args)
         {
+            ServiceCollection shopcontext = new ServiceCollection();
+            
             Console.WriteLine("Задайте начальное количество мандаринов (макс. 20)");
             int tangerinesCount = Int32.Parse(Console.ReadLine());
             Console.WriteLine("Задайте цену мандаринов за 1 шт.");

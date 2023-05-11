@@ -8,6 +8,7 @@ namespace shop
 {
     public class Shop
     {
+
         public money shopB;
         public money cashb;
         public List<Tangerine> tangerine;
@@ -33,11 +34,6 @@ namespace shop
   
         public void Buy(int choice, money cashb, money shopB, int tangerineCost, int appleCost, int orangeCost, int amount)
         {
-            if (choice > 3 || choice < 1)
-            {
-
-                return;
-            }
 
             if (choice == 1)
             {
